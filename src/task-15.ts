@@ -20,7 +20,12 @@
 // Додайте до функції явну типізацію, вкажіть, що вона повертає проміс, який приводиться до масиву товарів.
 // ______________________________________________________________________________
 
-function fetchProducts() {
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+}
+function fetchProducts(): Promise<Product[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve([

@@ -11,11 +11,56 @@
 // Оголосіть функцію logThreePosts, яка виведе в консоль дані перших 3 постів, виводячи їхні title та body.
 // ______________________________________________________________________________
 
-// import axios from "axios";
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  address: Address;
+  phone: string;
+  website: string;
+  company: Company;
+}
+interface Address {
+  street: string;
+  suite: string;
+  city: string;
+  zipcode: string;
+  geo: Geo;
+}
+interface Geo {
+  lat: string;
+  lng: string;
+}
+interface Company {
+  name: string;
+  catchPhrase: string;
+  bs: string;
+}
 
-// const fetchPosts = async () => {
-//   const response = await axios.get(
-//     "https://jsonplaceholder.typicode.com/posts"
-//   );
-//   return response.data;
-// };
+interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
+
+import axios from "axios";
+
+const fetchPosts = async (): Promise<Post[]> => {
+  const response = await axios.get<Post[]>(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+  return response.data;
+};
+
+const logThreePosts = async () => {
+  const posts = await fetchPosts();
+  console.log("First three posts:");
+  posts.slice(0, 3).forEach((post) => {
+    console.log(`Title: ${post.title}`);
+    console.log(`Body: ${post.body}`);
+    console.log("---");
+  });
+};
+
+logThreePosts();

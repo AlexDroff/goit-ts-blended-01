@@ -11,9 +11,35 @@
 // Типізуйте функцію fetchUsers.
 // ______________________________________________________________________________
 
-const fetchUsers = async () => {
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  address: Address;
+  phone: string;
+  website: string;
+  company: Company;
+}
+interface Address {
+  street: string;
+  suite: string;
+  city: string;
+  zipcode: string;
+  geo: Geo;
+}
+interface Geo {
+  lat: string;
+  lng: string;
+}
+interface Company {
+  name: string;
+  catchPhrase: string;
+  bs: string;
+}
+
+const fetchUsers = async (): Promise<User[]> => {
   const response = await fetch("https://jsonplaceholder.typicode.com/users");
-  const data = await response.json();
+  const data = (await response.json()) as User[];
   return data;
 };
 

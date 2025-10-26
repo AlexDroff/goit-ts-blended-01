@@ -15,18 +15,44 @@
 // Типізуйте функцію fetchUsers.
 // ______________________________________________________________________________
 
-// import axios from "axios";
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  address: Address;
+  phone: string;
+  website: string;
+  company: Company;
+}
+interface Address {
+  street: string;
+  suite: string;
+  city: string;
+  zipcode: string;
+  geo: Geo;
+}
+interface Geo {
+  lat: string;
+  lng: string;
+}
+interface Company {
+  name: string;
+  catchPhrase: string;
+  bs: string;
+}
 
-// const fetchUsers = async () => {
-//   const response = await axios.get(
-//     "https://jsonplaceholder.typicode.com/users"
-//   );
-//   return response.data;
-// };
+import axios from "axios";
 
-// const getUsers = async () => {
-//   const users = await fetchUsers();
-//   console.log(users);
-// };
+const fetchUsers = async (): Promise<User[]> => {
+  const response = await axios.get<User[]>(
+    "https://jsonplaceholder.typicode.com/users"
+  );
+  return response.data;
+};
 
-// getUsers();
+const getUsers = async () => {
+  const users = await fetchUsers();
+  console.log(users);
+};
+
+getUsers();
